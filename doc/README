@@ -1,0 +1,11 @@
+TMassPeakFit: 			class that handles data readout and fit
+
+mass_peak_fit: 			top level application that is launched from the command line. Creates instance of the class and starts minimization. 
+				Type "mass_peak_fit -h" to get a list of options
+
+
+src/fit_functions.cxx: 		implementations of the fit functions (gauss, breit-wigner, etc.)
+src/minimization_functions.cxx: implementations of the minimization approaches (chi2, likelihood, etc.)
+src/Fit.cxx:			the default fit procedure. A single fit function.
+src/CustomFit.cxx:		a placeholder. You can implement your own fit procedure here (e.g. several fit functions with different minimization approaches, more output, etc.). 
+				Give --custom_fit switch to the mass_peak_fit application to activate this function and deactivate Fit(), the default one.

@@ -1,0 +1,3 @@
+make
+./generate_data --config gauss_pol3
+./mass_peak_fit --config gauss_pol3

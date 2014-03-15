@@ -1,0 +1,11 @@
+# specify input data
+input_file          test.root
+input_histogram     test
+
+# possible values: gauss, double-gauss, breit-wigner. Append '+pol3' to add background
+fit_type            chi2
+fit_function        gauss
+fit_range           3.5 4.5
+start_values        3.8 0.4 1000
+fix_parameters      0     0    0
+only_draw_initial   1

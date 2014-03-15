@@ -1,0 +1,242 @@
+binned extended likelihood --> example mass peak fit
+
+----
+
+Intro Mass peak fit, figure and discussion
+of all aspects
+
+Signal estimation by eye.
+
+Fit using minuit, Minuit intro
+  - Purpose/Concept of Minuit
+    FCN minimization FCN= chi2 etc.
+    based on numerical Newton Raphson method
+    sketch
+  - Basic programme structure
+  - Minuit main commands
+
+Minuit standalone programme
+ Initialization
+ Data tables
+ Minimization
+ Output
+
+Fit: g(p0,p1,p2) + p3
+
+Task 1: fit p0 only (fix the rest)
+- run the programme, understand the printout, vary printout level
+- Fit quality control: - 2 ln L and Neyman chi2
+- test convergence: run migrad twice
+- different uncertainty estimates:
+  - migrad
+  - hesse
+  - minos
+  for low statistics and high statistics example
+- test different mass binnings (small to large)
+- discuss bin integration  
+
+Task 2: fit p0 and p3
+- Run the fit
+- parameter errors from Hesse 
+  and covariance ellipse 
+- parameter errors from minos 
+  and chi2+n*n contours
+  -> profile likelihood concept
+- vary fit range and see how p0 and p3 errors and 
+  correlations change
+- Compare different parameter estimation approaches:
+  poisson lh
+  Neyman chi2
+  Pearson chi2
+  Poisson lh variant approaching chi2 in large stat. limit (deviance)
+  fill table with fitted parameters, errors and -2 ln L or chi2
+  Discuss biases on normalisation
+  Global normalisation constraint and fractions
+- perhaps again one low and one high stat. example
+
+Task 3: fit p1 (peak position)
+- Introduction/motivation, e.g. Higgs mass
+  crucial SM parameter, biases of mass measurements
+  in collider detectors: e.g. for track based mass peak
+  fits limited understanding/modelling of magnetic field inhomogenities
+  etc.
+- paper exercise with scan of mass peak position and chi2 fit,
+  showing the problem of several local minima in chi2
+- Fit exercise:
+  fit p1 only:
+  - bad start value
+  - good start value
+  fit p1 and p0:
+  - bad start values
+  - good start values
+  Correlation of p1 and p0 and related uncertainty increase
+  fit p1, p0 and p4:
+  - bad start values
+  - good start values
+
+Task 4: fit p2 (width of peak)
+- Introduction/motivation
+  two contributions to observable width of peak
+  1. natural width of particle, BW resonance, example phi resonance
+  2. detector resolution
+  many examples where 2 dominates, e.g. Dstar peak
+  Often detector resolutions are not perfectly
+  modelled by MC simulation, although it was already  
+  tuned -> need to fit to the data.
+  Often simplifying assumption for det. resolution: 
+  single gaussian, this is usually only for reasonably
+  small stat. justified, discuss more later
+- Fit p2 only (fix the rest) resulting error is
+  approximately p2 over sqrtn
+- Fit p2 and p0, correlations/error increase
+  use properly normalised gaussian and gaussian without 1/(2sqrtpi sigma)
+  and compare different correlations
+- Fit p2, p0 and p1 and correlations/error increase
+- Fit p2, p0, p1 and p3
+- Example data with 2 gaussian peak (e.g. K0s peak)
+  fit g(p0,p1,p2)+g(p3,p4,p5)+p6
+  Test with different start values
+
+Task 5: Background 
+- Introduction/motivation
+  Background is almost unavoidable, different cases
+  - well known SM background, e.g. elastic Jpsi production
+    at HERA, lpair production is accurately known to NLO
+  - often MC estimated background, sum of several
+    sources, each on scaled e.g. using some control region
+    e.g Drell Yan production at LHC.
+  - often background is not really known, try to assess from 
+    observed mass spectrum itself
+  - Different background classes:
+    - combinatorical background e.g. from pions produced
+    in the fragmention of jets., smooth behaviour,
+    phasespace effects, e.g for Dstar background in deltam
+    - resonant background, e.g S0 in D0 > Kpi spectrum
+      with missing pi0, or Kstar reflection in phi mass spectrum
+      with pion wrongly taken as kaon.
+    will assume for following example(s) unknown and purely combinatorical
+    background
+- fit data with g(p0,p1,p2) + p3 + p4 x + p5 x x  + p6 x x x 
+  - p3 only for bgr
+  - switch on step by step p4, p5 and b6, watch how
+    -2 ln l and neyman chi2 change, wilkes theorem,
+    only add parameter if significant drop of chi2, 
+    compare results for
+    signal and uncertainty for the different cases
+  - vary fit range for a give parameterisation  
+  - bgr parameterisation and fit range variations
+    for assessment of signal systematics
+  - Problem of large correlations between background
+    parameters rho = -0.999, one possibility is to renormalise
+    background function
+  - Discuss relevance of fitting/not fitting the threshold region,
+    in case of dstar it is important, but for the case that peak
+    is far away from threshold it mignt be not helpful.
+    Pure phasespace assumption often not correct, biases due to
+    trigger selection, detector acceptances, etc.
+
+Mention further mass peak examples/tasks
+- double peak structure.
+- Convolution of BW with resolution
+- for high statistics one becomes more and more sensitive
+  to tiny details of the spectrum and one might need to
+  refine the fit model (add broad gaussian for resolution,
+  reflection, etc.)  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
