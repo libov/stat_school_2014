@@ -45,7 +45,7 @@ int main (int argc, char **argv) {
                 config = optarg;
                 cout << "\nINFO: config file is chosen to be ./config/generate_data/" << config << endl << endl;
                 system("cat config/generate_data/" + config);
-                cout << endl;
+                cout << endl << endl;
                 break;
             case 'h':
                 cout<<"\nUsage: " << endl;
