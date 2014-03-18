@@ -1,4 +1,4 @@
 *.o
-generate_data
-mass_peak_fit
+./generate_data
+./mass_peak_fit
 *.root
