@@ -64,6 +64,17 @@ void TMassPeakFit::Fit() {
     fitresult -> SetParameters(par);
     fitresult -> Draw("same");
 
+    // draw individual components
+    unsigned n_par_current=0;
+    for (unsigned i=0; i<fNFitFunctions; i++) {
+        TString function = fFitFunctions[i];
+        TF1 * f = new TF1("", get_function_pointer(function), fFitRange[0], fFitRange[1], get_n_parameters(function));
+        f -> SetParameters(&par[n_par_current]);
+        n_par_current += get_n_parameters(function);
+        f -> SetLineColor(i+3);
+        f -> Draw("same");
+    }
+
     // and the legend
     TLegend * leg = new TLegend (0.15,0.6,0.35,0.8);
     leg -> AddEntry(fHistogram, "input data", "p");
