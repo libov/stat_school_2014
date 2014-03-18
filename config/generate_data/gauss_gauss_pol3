@@ -1,8 +1,8 @@
 output_file     test.root
 histogram       test
-nbins           30
+nbins           100
 xmin            3
 xmax            5
-distribution    gauss 10000 0 4.0 0.2
-distribution    gauss 3000 0 4.5 0.05
-distribution    pol3 100000 0 0 10 0 0
+distribution    gauss 10000 0 4.0 0.05
+distribution    gauss 15000 0 4.0 0.2
+distribution    pol3 20000 0 1 0 0 0
