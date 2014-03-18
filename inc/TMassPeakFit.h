@@ -42,6 +42,9 @@ class TMassPeakFit : public TObject {
         Double_t    fFixParameters[99];
         bool        fOnlyDrawInitial;
 
+        unsigned        fNFitFunctions;
+        vector<TString> fFitFunctions;
+
         // internal objects
         TH1F*       fHistogram;
         TMinuit*    fMinuit;
