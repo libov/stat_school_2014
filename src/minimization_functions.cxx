@@ -44,12 +44,23 @@ Double_t TMassPeakFit::chi2(Double_t * par) {
     for (unsigned i=1; i<=nbins; i++) {
         // get the center of the bin
         x = fHistogram ->  GetBinCenter(i);
-        // skip for zero entries bins - the error is otherwise zero!
-        if ( fHistogram -> GetBinContent(i) == 0 ) continue;
         // check if we are in the fit range given in the config file
         if ( (x<fFitRange[0]) || (x>fFitRange[1]) ) continue;
         // calculate the term and add it to the overall chi2
-        result += pow( (fHistogram -> GetBinContent(i) - FitFunction(&x, par) )/fHistogram->GetBinError(i), 2);
+        Double_t variance;
+        if (fPearson) { // Pearson's chi2
+            variance = FitFunction(&x, par);
+        } else {  // Neyman's chi2
+            variance = fHistogram -> GetBinContent(i);
+            // sanity check
+            if ( variance != pow(fHistogram -> GetBinError(i), 2) ) {
+                cout << "ERROR: bin content error does not match sqrt(bin content). Should not happen unless the histogram was reweighted (was it?)." << endl;
+                abort();
+            }
+        }
+        // this affects mostly Neyman's definition; entries with zero number of events should be skipped - the error is otherwise zero and can't be used in the denominator!
+        if (variance == 0 ) continue;
+        result += pow( fHistogram -> GetBinContent(i) - FitFunction(&x, par), 2 ) / variance;
     }
 
     // done
