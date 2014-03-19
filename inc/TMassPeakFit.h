@@ -44,6 +44,7 @@ class TMassPeakFit : public TObject {
 
         unsigned        fNFitFunctions;
         vector<TString> fFitFunctions;
+        bool            fPearson;
 
         // internal objects
         TH1F*       fHistogram;
