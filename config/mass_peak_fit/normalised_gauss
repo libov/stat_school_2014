@@ -1,0 +1,12 @@
+# specify input data
+input_file          test.root
+input_histogram     test
+
+# possible values: gauss, normalised_gauss, pol3.
+# Any combination of these functions works, separate them with '+'.
+fit_type            chi2
+fit_function        normalised_gauss
+fit_range           3   5
+start_values        3.9 0.4 1000
+fix_parameters      0     0    0
+only_draw_initial   0
