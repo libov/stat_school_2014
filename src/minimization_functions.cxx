@@ -67,3 +67,29 @@ Double_t TMassPeakFit::chi2(Double_t * par) {
     // done
     return result;
 }
+
+// this is the Poisson's likelihood minimization function
+Double_t TMassPeakFit::log_likelihood(Double_t * par) {
+
+    // get number of bins in the input histogram - this gives number of terms in the chi2 calculation (hence the loop below)
+    unsigned nbins = fHistogram -> GetNbinsX();
+
+    // resulting likelihood will be stored here
+    Double_t L = 1;
+
+    // this is the value at which the fit function is evaluated
+    Double_t x;
+
+    // loop over factors entering L (=histogram bins)
+    for (unsigned i=1; i<=nbins; i++) {
+        // get the center of the bin
+        x = fHistogram ->  GetBinCenter(i);
+        // check if we are in the fit range given in the config file
+        if ( (x<fFitRange[0]) || (x>fFitRange[1]) ) continue;
+        // calculate the term and multiply the overall likelihood by it
+        L *= exp(-FitFunction(&x, par)) * pow(FitFunction(&x, par), fHistogram -> GetBinContent(i)) / TMath::Factorial(fHistogram -> GetBinContent(i));
+    }
+
+    // done
+    return (-2*TMath::Log(L));
+}
