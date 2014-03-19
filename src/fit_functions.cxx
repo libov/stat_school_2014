@@ -43,7 +43,7 @@ Double_t normalised_gauss(Double_t *x, Double_t *par) {
 
     Double_t arg = x[0];
 
-    Double_t prefactor = area / ( rms * sqrt(2*TMath::Pi()) );
+    Double_t prefactor = area / ( rms * sqrt(2.*TMath::Pi()) );
     return ( prefactor * exp( -0.5 * pow((arg -mean)/rms, 2) ) );
 }
 
@@ -95,7 +95,7 @@ TString get_parameter_name(TString function, unsigned par_nr) {
     parameter_names["normalised_gauss"].clear();
     parameter_names["normalised_gauss"].push_back("Mean             ");
     parameter_names["normalised_gauss"].push_back("RMS (sigma)      ");
-    parameter_names["normalised_gauss"].push_back("Area             ");
+    parameter_names["normalised_gauss"].push_back("Area x bin width ");
 
     parameter_names["pol3"].clear();
     parameter_names["pol3"].push_back("p0               ");
