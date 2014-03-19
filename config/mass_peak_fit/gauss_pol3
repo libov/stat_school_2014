@@ -6,7 +6,7 @@ input_histogram     test
 # Any combination of these functions works, separate them with '+'.
 fit_function        gauss+pol3
 # possible values: chi2_pearson, chi2_neyman, log_likelihood
-fit_type            chi2
+fit_type            chi2_neyman
 fit_range           3. 5
 start_values        3.8 0.2 1000 1000 8 0 0
 fix_parameters      0     0    0     0 0 1 1
