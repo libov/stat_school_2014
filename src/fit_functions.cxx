@@ -89,6 +89,19 @@ TString get_parameter_name(TString function, unsigned par_nr) {
         if (par_nr == 5) result = "p2              ";
         if (par_nr == 6) result = "p3              ";
 
+    } else if (function == "gauss+gauss+pol3") {
+
+        if (par_nr == 0) result = "Mean (gauss1)            ";
+        if (par_nr == 1) result = "RMS (sigma) (gauss1)     ";
+        if (par_nr == 2) result = "Value at Maximum (gauss1)";
+        if (par_nr == 3) result = "Mean (gauss2)            ";
+        if (par_nr == 4) result = "RMS (sigma) (gauss2)     ";
+        if (par_nr == 5) result = "Value at Maximum (gauss2)";
+        if (par_nr == 6) result = "p0                       ";
+        if (par_nr == 7) result = "p1                       ";
+        if (par_nr == 8) result = "p2                       ";
+        if (par_nr == 9) result = "p3                       ";
+
     } else {
         cout << "ERROR: fit function " << function << " is not supported " << endl;
     }

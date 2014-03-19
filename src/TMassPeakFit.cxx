@@ -133,6 +133,8 @@ Double_t    TMassPeakFit::FitFunction(Double_t * x, Double_t * par) {
         result = gauss(x, par);
     } else if (fFitFunction=="gauss+pol3") {
         result = gauss(x, &par[0]) + pol3(x, &par[3]);
+    } else if (fFitFunction=="gauss+gauss+pol3") {
+        result = gauss(x, &par[0]) + gauss(x, &par[3]) + pol3(x, &par[6]);
     } else {
         cout << "ERROR: fit function " << fFitFunction << " is not supported " << endl;
     }
