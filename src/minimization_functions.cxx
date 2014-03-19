@@ -53,8 +53,9 @@ Double_t TMassPeakFit::chi2(Double_t * par) {
         } else {  // Neyman's chi2
             variance = fHistogram -> GetBinContent(i);
             // sanity check
-            if ( variance != pow(fHistogram -> GetBinError(i), 2) ) {
+            if ( sqrt(variance) != fHistogram -> GetBinError(i) ) {
                 cout << "ERROR: bin content error does not match sqrt(bin content). Should not happen unless the histogram was reweighted (was it?)." << endl;
+                cout << "sqrt(bin content)= " << variance <<  ", bin error= " << fHistogram -> GetBinError(i) << endl;
                 abort();
             }
         }
