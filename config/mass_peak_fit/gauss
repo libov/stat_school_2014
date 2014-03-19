@@ -6,7 +6,7 @@ input_histogram     test
 # Any combination of these functions works, separate them with '+'.
 fit_type            chi2
 fit_function        gauss
-fit_range           3.5 4.5
-start_values        3.8 0.4 1000
+fit_range           3   5
+start_values        3.9 0.4 1000
 fix_parameters      0     0    0
-only_draw_initial   1
+only_draw_initial   0
