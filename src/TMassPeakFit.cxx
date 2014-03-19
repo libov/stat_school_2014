@@ -126,7 +126,14 @@ void    TMassPeakFit::ReadSettings() {
 // --------------------------------------------------------- //
 Double_t    TMassPeakFit::MinimizationFunction(Double_t * par) {
     Double_t result;
-    if ( (fFitType == "chi2_neyman") || (fFitType == "chi2_pearson") ) result = chi2(par);
+    if ( (fFitType == "chi2_neyman") || (fFitType == "chi2_pearson") ) {
+        result = chi2(par);
+    } else if ( fFitType == "log_likelihood") {
+        return log_likelihood(par);
+    } else {
+        cout << "ERROR: minimisation function " << fFitType << " is not supported" << endl;
+        abort();
+    }
     return result;
 }
 
