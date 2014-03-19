@@ -35,6 +35,18 @@ Double_t gauss(Double_t *x, Double_t *par) {
     return ( norm * exp( -0.5 * pow((arg -mean)/rms, 2) ) );
 }
 
+Double_t normalised_gauss(Double_t *x, Double_t *par) {
+
+    Double_t mean   = par[0];
+    Double_t rms    = par[1];
+    Double_t area   = par[2];
+
+    Double_t arg = x[0];
+
+    Double_t prefactor = area / ( rms * sqrt(2*TMath::Pi()) );
+    return ( prefactor * exp( -0.5 * pow((arg -mean)/rms, 2) ) );
+}
+
 Double_t pol3(Double_t *x, Double_t *par) {
 
     Double_t p0 = par[0];
@@ -52,6 +64,7 @@ unsigned get_n_parameters(TString function) {
     map<TString,unsigned> n_par;
 
     n_par["gauss"] = 3;
+    n_par["normalised_gauss"] = 3;
     n_par["pol3"]  = 4;
 
     return (n_par[function]);
@@ -64,6 +77,7 @@ FIT_FUNCTION get_function_pointer(TString function){ // another way: Double_t (*
     map<TString, FIT_FUNCTION> pointers;
 
     pointers["gauss"]   = gauss;
+    pointers["normalised_gauss"]   = normalised_gauss;
     pointers["pol3"]    = pol3;
 
     return pointers[function];
@@ -77,6 +91,11 @@ TString get_parameter_name(TString function, unsigned par_nr) {
     parameter_names["gauss"].push_back("Mean             ");
     parameter_names["gauss"].push_back("RMS (sigma)      ");
     parameter_names["gauss"].push_back("Value at Maximum ");
+
+    parameter_names["normalised_gauss"].clear();
+    parameter_names["normalised_gauss"].push_back("Mean             ");
+    parameter_names["normalised_gauss"].push_back("RMS (sigma)      ");
+    parameter_names["normalised_gauss"].push_back("Area             ");
 
     parameter_names["pol3"].clear();
     parameter_names["pol3"].push_back("p0               ");
