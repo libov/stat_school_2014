@@ -71,41 +71,18 @@ FIT_FUNCTION get_function_pointer(TString function){ // another way: Double_t (*
 
 TString get_parameter_name(TString function, unsigned par_nr) {
 
-    TString result = "";
+    map<TString, vector<TString> > parameter_names;
 
-    if (function == "gauss") {
+    parameter_names["gauss"].clear();
+    parameter_names["gauss"].push_back("Mean             ");
+    parameter_names["gauss"].push_back("RMS (sigma)      ");
+    parameter_names["gauss"].push_back("Value at Maximum ");
 
-        if (par_nr == 0) result = "Mean            ";
-        if (par_nr == 1) result = "RMS (sigma)     ";
-        if (par_nr == 2) result = "Value at Maximum";
+    parameter_names["pol3"].clear();
+    parameter_names["pol3"].push_back("p0               ");
+    parameter_names["pol3"].push_back("p1               ");
+    parameter_names["pol3"].push_back("p2               ");
+    parameter_names["pol3"].push_back("p3               ");
 
-    } else if (function == "gauss+pol3") {
-
-        if (par_nr == 0) result = "Mean            ";
-        if (par_nr == 1) result = "RMS (sigma)     ";
-        if (par_nr == 2) result = "Value at Maximum";
-        if (par_nr == 3) result = "p0              ";
-        if (par_nr == 4) result = "p1              ";
-        if (par_nr == 5) result = "p2              ";
-        if (par_nr == 6) result = "p3              ";
-
-    } else if (function == "gauss+gauss+pol3") {
-
-        if (par_nr == 0) result = "Mean (gauss1)            ";
-        if (par_nr == 1) result = "RMS (sigma) (gauss1)     ";
-        if (par_nr == 2) result = "Value at Maximum (gauss1)";
-        if (par_nr == 3) result = "Mean (gauss2)            ";
-        if (par_nr == 4) result = "RMS (sigma) (gauss2)     ";
-        if (par_nr == 5) result = "Value at Maximum (gauss2)";
-        if (par_nr == 6) result = "p0                       ";
-        if (par_nr == 7) result = "p1                       ";
-        if (par_nr == 8) result = "p2                       ";
-        if (par_nr == 9) result = "p3                       ";
-
-    } else {
-        cout << "ERROR: fit function " << function << " is not supported " << endl;
-    }
-
-    return result;
-
+    return parameter_names[function][par_nr];
 }

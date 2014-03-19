@@ -35,7 +35,15 @@ void TMassPeakFit::Fit() {
 
     // initialise Minuit (set parameter names, start values, limits, fit steps; some of these are set in the config file, others directly here.
     TString  ParName[99];
-    for (unsigned i=0; i<fNParameters; i++) ParName[i] = get_parameter_name(fFitFunction, i);
+    unsigned k=0;
+    for (unsigned i=0; i<fNFitFunctions; i++) {
+        TString function = fFitFunctions[i];
+        unsigned npar = get_n_parameters(function);
+        for (unsigned j=0; j<npar; j++) {
+            ParName[k] = get_parameter_name(function, j);
+            k++;
+        }
+    }
 
     Double_t fitStep[99], limitMin[99], limitMax[99];
 
