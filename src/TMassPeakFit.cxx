@@ -97,8 +97,19 @@ void    TMassPeakFit::ReadSettings() {
         }
     }
 
-    // sanity check
-    if ( (fFitFunction == "gauss" && fNParameters != 3) || (fFitFunction == "gauss+pol3" && fNParameters != 7) ) {
+    // store names of individual fit functions (which are summed up to form the overall fit function)
+    TObjArray *tokens = fFitFunction.Tokenize("+");
+    fNFitFunctions = tokens -> GetEntries();
+    fFitFunctions.clear();
+    unsigned n_parameters = 0;
+    for (unsigned i=0; i<fNFitFunctions; i++) {
+        TString function = ( (TObjString*)tokens->At(i) ) -> GetString();
+         fFitFunctions.push_back(function);
+         n_parameters += get_n_parameters(function);
+    }
+
+    // sanity check - number of parameters
+    if (fNParameters != n_parameters ) {
         cout << "ERROR: function type and number of parameters given in start_values don't match ... " << endl;
         abort();
     }
