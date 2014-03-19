@@ -128,15 +128,18 @@ Double_t    TMassPeakFit::MinimizationFunction(Double_t * par) {
 // --------------------- Fit Function  --------------------- //
 // --------------------------------------------------------- //
 Double_t    TMassPeakFit::FitFunction(Double_t * x, Double_t * par) {
-    Double_t result;
-    if (fFitFunction=="gauss") {
-        result = gauss(x, par);
-    } else if (fFitFunction=="gauss+pol3") {
-        result = gauss(x, &par[0]) + pol3(x, &par[3]);
-    } else if (fFitFunction=="gauss+gauss+pol3") {
-        result = gauss(x, &par[0]) + gauss(x, &par[3]) + pol3(x, &par[6]);
-    } else {
-        cout << "ERROR: fit function " << fFitFunction << " is not supported " << endl;
+
+    Double_t result = 0;
+
+    unsigned npar = 0;
+
+    for (unsigned i=0; i<fNFitFunctions; i++) {
+
+        TString function = fFitFunctions[i];
+
+        result += get_function_pointer(function)(x, &par[npar]);
+
+        npar += get_n_parameters(function);
     }
 
     return result;
