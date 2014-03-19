@@ -113,6 +113,12 @@ void    TMassPeakFit::ReadSettings() {
         cout << "ERROR: function type and number of parameters given in start_values don't match ... " << endl;
         abort();
     }
+
+    // this is to distinguish between Neyman's and Pearson's chi2 definitions
+    fPearson = false;
+    if (fFitType == "chi2_pearson") {
+        fPearson = true;
+    }
 }
 
 // --------------------------------------------------------- //
@@ -120,7 +126,7 @@ void    TMassPeakFit::ReadSettings() {
 // --------------------------------------------------------- //
 Double_t    TMassPeakFit::MinimizationFunction(Double_t * par) {
     Double_t result;
-    if (fFitType == "chi2") result = chi2(par);
+    if ( (fFitType == "chi2_neyman") || (fFitType == "chi2_pearson") ) result = chi2(par);
     return result;
 }
 
