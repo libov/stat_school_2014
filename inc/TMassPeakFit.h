@@ -26,7 +26,7 @@ class TMassPeakFit : public TObject {
 
         // various minimization functions
         Double_t    chi2(Double_t * par);
-        Double_t    poisson(Double_t * par);
+        Double_t    log_likelihood(Double_t * par);
 
         // config file name
         TString     fConfigFilename;
