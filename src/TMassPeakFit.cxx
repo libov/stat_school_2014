@@ -92,6 +92,10 @@ void    TMassPeakFit::ReadSettings() {
                 fFixParameters[i] = (((TObjString*)tokens->At(i+1)) -> GetString()).Atof();
             }
         }
+        if (first_word == "covariance_ellipse_parameters") {
+            fCovarianceEllipseParameter1 =(((TObjString*)tokens->At(1)) -> GetString()).Atoi();
+            fCovarianceEllipseParameter2 =(((TObjString*)tokens->At(2)) -> GetString()).Atoi();
+        }
         if (first_word == "only_draw_initial") {
             fOnlyDrawInitial = (bool) (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
         }
