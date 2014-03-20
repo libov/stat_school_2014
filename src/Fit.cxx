@@ -16,6 +16,7 @@
 #include <TMinuit.h>
 #include <TF1.h>
 #include <TLegend.h>
+#include <TGraph.h>
 
 // system headers
 #include <iostream>
@@ -92,4 +93,13 @@ void TMassPeakFit::Fit() {
 
     // print to file
     c -> Print("results/fit.eps");
+
+    // draw covariance ellipse
+    TCanvas * c2 = new TCanvas();
+    TGraph *cont = (TGraph*)gMinuit->Contour(100, fCovarianceEllipseParameter1, fCovarianceEllipseParameter2);
+    cont -> SetTitle ("Covariance ellipse");
+    cont -> GetXaxis() -> SetTitle(ParName[fCovarianceEllipseParameter1]);
+    cont -> GetYaxis() -> SetTitle(ParName[fCovarianceEllipseParameter2]);
+    cont->Draw("al");
+    c2 -> Print("results/cov_ellipse.eps");
 }
