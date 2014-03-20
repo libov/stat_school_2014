@@ -91,5 +91,5 @@ void TMassPeakFit::Fit() {
     leg -> Draw("same");
 
     // print to file
-    c -> Print("results/out.eps");
+    c -> Print("results/fit.eps");
 }
