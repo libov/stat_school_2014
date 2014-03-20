@@ -10,4 +10,5 @@ fit_type            chi2_neyman
 fit_range           3. 5
 start_values        4.0 0.05 1000 4.0 0.2 1500 100   0 0 0
 fix_parameters      0   0    0    0   0   0    0     1 1 1
+covariance_ellipse_parameters 1 2
 only_draw_initial   0
