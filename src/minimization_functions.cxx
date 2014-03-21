@@ -54,9 +54,8 @@ Double_t TMassPeakFit::chi2(Double_t * par) {
             variance = fHistogram -> GetBinContent(i);
             // sanity check
             if ( sqrt(variance) != fHistogram -> GetBinError(i) ) {
-                cout << "ERROR: bin content error does not match sqrt(bin content). Should not happen unless the histogram was reweighted (was it?)." << endl;
+                cout << "WARNING: bin content error does not match sqrt(bin content). Should not happen unless the histogram was reweighted (was it?)." << endl;
                 cout << "sqrt(bin content)= " << variance <<  ", bin error= " << fHistogram -> GetBinError(i) << endl;
-                abort();
             }
         }
         // this affects mostly Neyman's definition; entries with zero number of events should be skipped - the error is otherwise zero and can't be used in the denominator!
