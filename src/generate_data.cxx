@@ -158,8 +158,7 @@ int main (int argc, char **argv) {
                     h -> Fill(x);
                     j++;
                 }
-            }
-            
+            }            
         }
     }
 
