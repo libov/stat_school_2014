@@ -143,21 +143,20 @@ int main (int argc, char **argv) {
         }
         TRandom3 rnd(distr.seed);
 
-
-        unsigned i=0;
-        while (i<distr.npoints) {
+        unsigned j=0;
+        while (j<distr.npoints) {
             if (distr.type == "gauss") {
                 double mean = distr.par[0];
                 double width = distr.par[1];
                 h -> Fill( rnd.Gaus(mean, width) );
-                i++;
+                j++;
             } else if (distr.type == "pol3") {
                 double x = rnd.Uniform(xmin, xmax);
                 double y = rnd.Rndm();
                 double max_y = f->Eval(x)/normalisation;
                 if (y < max_y ) {
                     h -> Fill(x);
-                    i++;
+                    j++;
                 }
             }
             
