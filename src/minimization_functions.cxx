@@ -68,8 +68,8 @@ Double_t TMassPeakFit::log_likelihood(Double_t * par) {
     // get number of bins in the input histogram - this gives number of terms in the chi2 calculation (hence the loop below)
     unsigned nbins = fHistogram -> GetNbinsX();
 
-    // resulting likelihood will be stored here
-    Double_t L = 1;
+    // resulting negative log-likelihood will be stored here
+    Double_t result = 0;
 
     // this is the value at which the fit function is evaluated
     Double_t x;
@@ -80,10 +80,10 @@ Double_t TMassPeakFit::log_likelihood(Double_t * par) {
         x = fHistogram ->  GetBinCenter(i);
         // check if we are in the fit range given in the config file
         if ( (x<fFitRange[0]) || (x>fFitRange[1]) ) continue;
-        // calculate the term and multiply the overall likelihood by it
-        L *= exp(-FitFunction(&x, par)) * pow(FitFunction(&x, par), fHistogram -> GetBinContent(i)); // / TMath::Factorial(fHistogram -> GetBinContent(i));
+        // calculate the term and add it to the result
+        result += 2 * FitFunction(&x, par) - 2 * fHistogram -> GetBinContent(i) * TMath::Log ( FitFunction(&x, par) );
     }
 
     // done
-    return (-2*TMath::Log(L));
+    return result;
 }
