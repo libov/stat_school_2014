@@ -132,17 +132,23 @@ int main (int argc, char **argv) {
     cout << "INFO: storing data to " << "data/"+output_file << endl;
 
     unsigned nbins = floor( (xmax-xmin) / bin_width + 0.5);
-    TH1F * h = new TH1F (histogram, "", nbins, xmin, xmin + nbins*bin_width);
+    double xmax_new = xmin + nbins*bin_width;
+    if ( xmax != xmax_new) {
+        cout << "WARNING: redefining upper range of the histogram since the range isn't integer number of bin widths.." << endl;
+        xmax = xmax_new;
+    }
+    TH1F * h = new TH1F (histogram, "", nbins, xmin, xmax);
     
     for (unsigned i=0; i<distributions.size(); i++) {
         Distribution distr = distributions[i];
-        TF1 *f;  // helping function for distributions not directly implemented in TRandom3
-        Double_t normalisation;
-        if (distr.type == "pol3") {
-            f = new TF1("","pol3",xmin, xmax);
-            f -> SetParameters(distr.par);
-            normalisation = f -> Integral(xmin, xmax);
-        }
+        
+        // helping function for random generation
+        TF1 * f = new TF1("", distr.type, xmin, xmax);  
+        f -> SetParameters(distr.par);
+        // calculate overall normalisation
+        Double_t normalisation = f -> Integral(xmin, xmax);
+
+        // initialise random number generator
         TRandom3 rnd(distr.seed);
 
         unsigned j=0;
@@ -152,10 +158,10 @@ int main (int argc, char **argv) {
                 double width = distr.par[1];
                 h -> Fill( rnd.Gaus(mean, width) );
                 j++;
-            } else if (distr.type == "pol3") {
+            } else {
                 double x = rnd.Uniform(xmin, xmax);
                 double y = rnd.Rndm();
-                double max_y = f->Eval(x)/normalisation;
+                double max_y = f->Eval(x) / normalisation;
                 if (y < max_y ) {
                     h -> Fill(x);
                     j++;
