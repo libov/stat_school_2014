@@ -49,6 +49,7 @@ class TMassPeakFit : public TObject {
         unsigned        fCovarianceEllipseParameter1;
         unsigned        fCovarianceEllipseParameter2;
         TString         fParName[99];
+        double          fBinWidth;
 
         // internal objects
         TH1F*       fHistogram;
