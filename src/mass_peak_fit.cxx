@@ -23,10 +23,10 @@ using namespace std;
 
 #include <TMassPeakFit.h>
 
-TMassPeakFit *GLOBAL_INSTANCE;
+TMassPeakFit *gTMassPeakFit;
 
 void minimization_function(Int_t& npar, Double_t* grad, Double_t& f, Double_t par[], Int_t iflag) {
-	f = GLOBAL_INSTANCE -> MinimizationFunction(par);
+	f = gTMassPeakFit -> MinimizationFunction(par);
 }
 
 int main (int argc, char **argv) {
@@ -79,7 +79,7 @@ int main (int argc, char **argv) {
 
     // create object
     TMassPeakFit instance(config, minimization_function);
-    GLOBAL_INSTANCE = &instance;
+    gTMassPeakFit = &instance;
 
     if (custom_fit) {
         instance.CustomFit();
