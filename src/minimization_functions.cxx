@@ -86,7 +86,7 @@ Double_t TMassPeakFit::log_likelihood(Double_t * par) {
         // check if we are in the fit range given in the config file
         if ( (x<fFitRange[0]) || (x>fFitRange[1]) ) continue;
         // calculate the term and multiply the overall likelihood by it
-        L *= exp(-FitFunction(&x, par)) * pow(FitFunction(&x, par), fHistogram -> GetBinContent(i)) / TMath::Factorial(fHistogram -> GetBinContent(i));
+        L *= exp(-FitFunction(&x, par)) * pow(FitFunction(&x, par), fHistogram -> GetBinContent(i)); // / TMath::Factorial(fHistogram -> GetBinContent(i));
     }
 
     // done
