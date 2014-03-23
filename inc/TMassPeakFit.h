@@ -19,6 +19,7 @@ class TMassPeakFit : public TObject {
         void        Fit();
         Double_t    MinimizationFunction(Double_t * par);
         Double_t    FitFunction(Double_t * x, Double_t * par);
+        void        MakePlots();
 
     private:
 
@@ -47,6 +48,7 @@ class TMassPeakFit : public TObject {
         bool            fPearson;
         unsigned        fCovarianceEllipseParameter1;
         unsigned        fCovarianceEllipseParameter2;
+        TString         fParName[99];
 
         // internal objects
         TH1F*       fHistogram;
