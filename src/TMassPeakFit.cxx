@@ -16,6 +16,7 @@
 #include <TMinuit.h>
 #include <TF1.h>
 #include <TLegend.h>
+#include <TGraph.h>
 
 // system headers
 #include <iostream>
@@ -118,6 +119,16 @@ void    TMassPeakFit::ReadSettings() {
         abort();
     }
 
+    unsigned k=0;
+    for (unsigned i=0; i<fNFitFunctions; i++) {
+        TString function = fFitFunctions[i];
+        unsigned npar = get_n_parameters(function);
+        for (unsigned j=0; j<npar; j++) {
+            fParName[k] = get_parameter_name(function, j);
+            k++;
+        }
+    }
+
     // this is to distinguish between Neyman's and Pearson's chi2 definitions
     fPearson = false;
     if (fFitType == "chi2_pearson") {
@@ -160,4 +171,58 @@ Double_t    TMassPeakFit::FitFunction(Double_t * x, Double_t * par) {
     }
 
     return result;
+}
+
+// --------------------------------------------------------- //
+// ------------ produce plots using fit results ------------ //
+// --------------------------------------------------------- //
+void    TMassPeakFit::MakePlots() {
+ 
+    TCanvas * c = new TCanvas();
+    fHistogram -> Draw("e");
+    fHistogram -> SetAxisRange(0, 1.2*fHistogram->GetMaximum(), "Y");
+
+    // get parameter values and their uncertainties from Minuit
+    Double_t par[99];
+    Double_t par_err[99];
+    for (unsigned i=0; i<fNParameters; i++) {
+        fMinuit -> GetParameter(i, par[i], par_err[i]);
+    }
+
+    // draw the fitted function
+    TF1 * fitresult =  new TF1("f", this, &TMassPeakFit::FitFunction, fFitRange[0], fFitRange[1], fNParameters, "TMassPeakFit", "FitFunction");
+    fitresult -> SetParameters(par);
+    fitresult -> Draw("same");
+
+    // draw individual components
+    unsigned n_par_current=0;
+    for (unsigned i=0; i<fNFitFunctions; i++) {
+        TString function = fFitFunctions[i];
+        TF1 * f = new TF1("", get_function_pointer(function), fFitRange[0], fFitRange[1], get_n_parameters(function));
+        f -> SetParameters(&par[n_par_current]);
+        n_par_current += get_n_parameters(function);
+        f -> SetLineColor(i+3);
+        f -> Draw("same");
+    }
+
+    // and the legend
+    TLegend * leg = new TLegend (0.15,0.6,0.35,0.8);
+    leg -> AddEntry(fHistogram, "input data", "p");
+    leg -> AddEntry(fitresult, "fit", "l");
+    leg -> SetFillColor(0);
+    leg -> Draw("same");
+
+    // print to file
+    c -> Print("results/fit.eps");
+    c -> Print("results/fit.root");
+
+    // draw covariance ellipse
+    TCanvas * c2 = new TCanvas();
+    TGraph *cont = (TGraph*)gMinuit->Contour(20, fCovarianceEllipseParameter1, fCovarianceEllipseParameter2);
+    cont -> SetTitle ("Covariance ellipse");
+    cont -> GetXaxis() -> SetTitle(fParName[fCovarianceEllipseParameter1]);
+    cont -> GetYaxis() -> SetTitle(fParName[fCovarianceEllipseParameter2]);
+    cont->Draw("al");
+    c2 -> Print("results/cov_ellipse.eps");
+    c2 -> Print("results/cov_ellipse.root");
 }
