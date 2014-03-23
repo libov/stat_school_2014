@@ -23,8 +23,6 @@ using namespace std;
 
 #include <TMassPeakFit.h>
 
-TMassPeakFit *gTMassPeakFit;
-
 void minimization_function(Int_t& npar, Double_t* grad, Double_t& f, Double_t par[], Int_t iflag) {
 	f = gTMassPeakFit -> MinimizationFunction(par);
 }
