@@ -36,6 +36,7 @@ TMassPeakFit::TMassPeakFit(TString config, void (*fcn)(Int_t&, Double_t*, Double
     // open input data
     TFile * input = new TFile ("data/"+fInputFile, "read");
     fHistogram = (TH1F*) input -> Get(fInputHistogramName);
+    fBinWidth = fHistogram -> GetBinWidth(1);
     fHistogram -> SetMarkerStyle(20);
 
     fMinuit = new TMinuit(3);
