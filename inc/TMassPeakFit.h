@@ -20,6 +20,7 @@ class TMassPeakFit : public TObject {
         Double_t    MinimizationFunction(Double_t * par);
         Double_t    FitFunction(Double_t * x, Double_t * par);
         void        MakePlots();
+        Double_t    GetBinWidth() {return fBinWidth;}
 
     private:
 
@@ -56,4 +57,7 @@ class TMassPeakFit : public TObject {
         TMinuit*    fMinuit;
 
 };
+
+extern TMassPeakFit *gTMassPeakFit;
+
 #endif
