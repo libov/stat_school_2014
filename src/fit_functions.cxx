@@ -43,7 +43,7 @@ Double_t normalised_gauss(Double_t *x, Double_t *par) {
 
     Double_t arg = x[0];
 
-    Double_t prefactor = area / ( rms * sqrt(2.*TMath::Pi()) );
+    Double_t prefactor = gTMassPeakFit -> GetBinWidth() * area / ( rms * sqrt(2.*TMath::Pi()) ) ;
     return ( prefactor * exp( -0.5 * pow((arg -mean)/rms, 2) ) );
 }
 
