@@ -80,7 +80,7 @@ int main (int argc, char **argv) {
 
     TString  output_file    = "";
     TString  histogram      = "";
-    unsigned nbins          = 0;
+    double   bin_width      = 0;
     unsigned xmin           = 0;
     unsigned xmax           = 0;
     vector <Distribution> distributions;
@@ -105,7 +105,7 @@ int main (int argc, char **argv) {
         // depending on the keyword, store values to variables
         if (first_word == "output_file")    output_file = ((TObjString*)tokens->At(1)) -> GetString();
         if (first_word == "histogram")      histogram = ((TObjString*)tokens->At(1)) -> GetString();
-        if (first_word == "nbins")          nbins = (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
+        if (first_word == "bin_width")      bin_width = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
         if (first_word == "xmin")           xmin = (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
         if (first_word == "xmax")           xmax = (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
  
@@ -130,7 +130,9 @@ int main (int argc, char **argv) {
     // open output file
     TFile * output = new TFile ("data/"+output_file, "recreate");
     cout << "INFO: storing data to " << "data/"+output_file << endl;
-    TH1F * h = new TH1F (histogram, "", nbins, xmin, xmax);
+
+    unsigned nbins = floor( (xmax-xmin) / bin_width + 0.5);
+    TH1F * h = new TH1F (histogram, "", nbins, xmin, xmin + nbins*bin_width);
     
     for (unsigned i=0; i<distributions.size(); i++) {
         Distribution distr = distributions[i];

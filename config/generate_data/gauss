@@ -1,6 +1,6 @@
 output_file     test.root
 histogram       test
-nbins           30
+bin_width       0.05
 xmin            3
 xmax            5
 distribution    gauss 10000 0 4.0 0.2
