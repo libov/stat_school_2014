@@ -39,11 +39,11 @@ Double_t normalised_gauss(Double_t *x, Double_t *par) {
 
     Double_t mean   = par[0];
     Double_t rms    = par[1];
-    Double_t area   = par[2];
+    Double_t nevents= par[2];
 
     Double_t arg = x[0];
 
-    Double_t prefactor = gTMassPeakFit -> GetBinWidth() * area / ( rms * sqrt(2.*TMath::Pi()) ) ;
+    Double_t prefactor = gTMassPeakFit -> GetBinWidth() * nevents / ( rms * sqrt(2.*TMath::Pi()) ) ;
     return ( prefactor * exp( -0.5 * pow((arg -mean)/rms, 2) ) );
 }
 
@@ -90,12 +90,12 @@ TString get_parameter_name(TString function, unsigned par_nr) {
     parameter_names["gauss"].clear();
     parameter_names["gauss"].push_back("Mean             ");
     parameter_names["gauss"].push_back("RMS (sigma)      ");
-    parameter_names["gauss"].push_back("Value at Maximum ");
+    parameter_names["gauss"].push_back("Maximum value    ");
 
     parameter_names["normalised_gauss"].clear();
     parameter_names["normalised_gauss"].push_back("Mean             ");
     parameter_names["normalised_gauss"].push_back("RMS (sigma)      ");
-    parameter_names["normalised_gauss"].push_back("Area x bin width ");
+    parameter_names["normalised_gauss"].push_back("Nevents          ");
 
     parameter_names["pol3"].clear();
     parameter_names["pol3"].push_back("p0               ");
