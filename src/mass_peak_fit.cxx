@@ -87,6 +87,8 @@ int main (int argc, char **argv) {
         instance.Fit();
     }
 
+    instance.MakePlots();
+
     // done
     return 0;
 }
