@@ -161,9 +161,6 @@ int main (int argc, char **argv) {
             }
             
         }
-
-        for (unsigned i=0; i<distr.npoints; i++) {
-        }
     }
 
     h -> Write();
