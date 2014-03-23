@@ -13,7 +13,7 @@ vpath %.cxx $(SRC)
 vpath %.C   $(SRC)
 vpath %.h   $(INC)
 
-all: mass_peak_fit generate_data
+all: mass_peak_fit.exe generate_data.exe
 
 mass_peak_fit.o: mass_peak_fit.cxx
 	gcc -o $(OBJ)/$@ -c $< -I inc/ $(FLAGS_OBJ)
@@ -36,14 +36,14 @@ minimization_functions.o: minimization_functions.cxx TMassPeakFit.h
 fit_functions.o: fit_functions.cxx fit_functions.h
 	gcc -o $(OBJ)/$@ -c $< -I inc/ $(FLAGS_OBJ)
 
-mass_peak_fit: mass_peak_fit.o TMassPeakFit.o CustomFit.o fit_functions.o Fit.o minimization_functions.o
-	gcc -o mass_peak_fit $(OBJ)/mass_peak_fit.o $(OBJ)/TMassPeakFit.o $(OBJ)/CustomFit.o $(OBJ)/Fit.o $(OBJ)/fit_functions.o $(OBJ)/minimization_functions.o $(FLAGS) -lMinuit
+mass_peak_fit.exe: mass_peak_fit.o TMassPeakFit.o CustomFit.o fit_functions.o Fit.o minimization_functions.o
+	gcc -o mass_peak_fit.exe $(OBJ)/mass_peak_fit.o $(OBJ)/TMassPeakFit.o $(OBJ)/CustomFit.o $(OBJ)/Fit.o $(OBJ)/fit_functions.o $(OBJ)/minimization_functions.o $(FLAGS) -lMinuit
 
-generate_data: generate_data.o
-	gcc -o generate_data $(OBJ)/generate_data.o $(FLAGS)
+generate_data.exe: generate_data.o
+	gcc -o generate_data.exe $(OBJ)/generate_data.o $(FLAGS)
 
 .PHONY: clean
 clean:
 	-rm -rf $(OBJ)/*.o
-	-rm -rf mass_peak_fit
-	-rm -rf generate_data
+	-rm -rf mass_peak_fit.exe
+	-rm -rf generate_data.exe
