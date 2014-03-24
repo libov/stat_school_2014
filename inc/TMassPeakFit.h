@@ -21,6 +21,7 @@ class TMassPeakFit : public TObject {
         Double_t    FitFunction(Double_t * x, Double_t * par);
         void        MakePlots();
         Double_t    GetBinWidth() {return fBinWidth;}
+	bool        IsNormalisedGauss() {return fIsNormalisedGauss;}
 
     private:
 
@@ -51,6 +52,7 @@ class TMassPeakFit : public TObject {
         unsigned        fCovarianceEllipseParameter2;
         TString         fParName[99];
         double          fBinWidth;
+	bool		fIsNormalisedGauss;
 
         // internal objects
         TH1F*       fHistogram;
