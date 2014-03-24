@@ -77,7 +77,6 @@ int main (int argc, char **argv) {
 
     // create object
     TMassPeakFit instance(config, minimization_function);
-    gTMassPeakFit = &instance;
 
     if (custom_fit) {
         instance.CustomFit();
