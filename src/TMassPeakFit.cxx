@@ -78,6 +78,7 @@ void    TMassPeakFit::ReadSettings() {
 
         // depending on the keyword, store values to variables
         if (first_word == "fit_function")       fFitFunction = ((TObjString*)tokens->At(1)) -> GetString();
+	if (first_word == "normalised_gauss")   fIsNormalisedGauss = (bool) (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
         if (first_word == "fit_type")           fFitType = ((TObjString*)tokens->At(1)) -> GetString();
         if (first_word == "input_file")         fInputFile = ((TObjString*)tokens->At(1)) -> GetString();
         if (first_word == "input_histogram")    fInputHistogramName = ((TObjString*)tokens->At(1)) -> GetString();
