@@ -103,6 +103,7 @@ void    TMassPeakFit::ReadSettings() {
             }
         }
         if (first_word == "covariance_ellipse_parameters") {
+            fDrawCovarianceEllipses = true;
             fCovarianceEllipseParameter1 =(((TObjString*)tokens->At(1)) -> GetString()).Atoi();
             fCovarianceEllipseParameter2 =(((TObjString*)tokens->At(2)) -> GetString()).Atoi();
         }
@@ -226,14 +227,16 @@ void    TMassPeakFit::MakePlots() {
     c -> Print("results/fit.root");
 
     // draw covariance ellipse
-    TCanvas * c2 = new TCanvas();
-    TGraph *cont = (TGraph*)gMinuit->Contour(20, fCovarianceEllipseParameter1, fCovarianceEllipseParameter2);
-    if (cont) {
-        cont -> SetTitle ("Covariance ellipse");
-        cont -> GetXaxis() -> SetTitle(fParName[fCovarianceEllipseParameter1]);
-        cont -> GetYaxis() -> SetTitle(fParName[fCovarianceEllipseParameter2]);
-        cont->Draw("al");
-        c2 -> Print("results/cov_ellipse.eps");
-        c2 -> Print("results/cov_ellipse.root");
+    if (fDrawCovarianceEllipses) {
+        TCanvas * c2 = new TCanvas();
+        TGraph *cont = (TGraph*)gMinuit->Contour(20, fCovarianceEllipseParameter1, fCovarianceEllipseParameter2);
+        if (cont) {
+            cont -> SetTitle ("Covariance ellipse");
+            cont -> GetXaxis() -> SetTitle(fParName[fCovarianceEllipseParameter1]);
+            cont -> GetYaxis() -> SetTitle(fParName[fCovarianceEllipseParameter2]);
+            cont->Draw("al");
+            c2 -> Print("results/cov_ellipse.eps");
+            c2 -> Print("results/cov_ellipse.root");
+        }
     }
 }
