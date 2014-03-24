@@ -35,6 +35,8 @@ TMassPeakFit::TMassPeakFit(TString config, void (*fcn)(Int_t&, Double_t*, Double
     // set the global pointer right away
     gTMassPeakFit = this;
 
+    fDrawCovarianceEllipses = false;
+
     fConfigFilename = config;
     ReadSettings();
 
