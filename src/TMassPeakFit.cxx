@@ -32,6 +32,9 @@ TMassPeakFit *gTMassPeakFit;
 // --------------------------------------------------------- //
 TMassPeakFit::TMassPeakFit(TString config, void (*fcn)(Int_t&, Double_t*, Double_t&, Double_t*, Int_t))
 {
+    // set the global pointer right away
+    gTMassPeakFit = this;
+
     fConfigFilename = config;
     ReadSettings();
 
