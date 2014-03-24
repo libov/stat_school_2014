@@ -48,6 +48,7 @@ class TMassPeakFit : public TObject {
         unsigned        fNFitFunctions;
         vector<TString> fFitFunctions;
         bool            fPearson;
+	bool		fDrawCovarianceEllipses;
         unsigned        fCovarianceEllipseParameter1;
         unsigned        fCovarianceEllipseParameter2;
         TString         fParName[99];
