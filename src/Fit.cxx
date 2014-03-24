@@ -40,6 +40,7 @@ void TMassPeakFit::Fit() {
 
     for (unsigned i=0;i<fNParameters;i++) {
         fMinuit->DefineParameter(i, fParName[i], fStartValues[i], fitStep[i], limitMin[i], limitMax[i]);
+        if ( fFixParameters[i] == 1 ) fMinuit -> FixParameter(i);
     }
 
     // if only_draw_initial is 1 in the config file, the minimization is not performed - instead function using start values are displayed
