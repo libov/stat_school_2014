@@ -143,10 +143,15 @@ int main (int argc, char **argv) {
         Distribution distr = distributions[i];
         
         // helping function for random generation
-        TF1 * f = new TF1("", distr.type, xmin, xmax);  
-        f -> SetParameters(distr.par);
-        // calculate overall normalisation
-        Double_t normalisation = f -> Integral(xmin, xmax);
+        TF1 * f;
+        // overal normalisation
+	Double_t normalisation;
+	if (distr.type!="gauss"){
+           f = new TF1("", distr.type, xmin, xmax);  
+           f -> SetParameters(distr.par);
+           // calculate overall normalisation
+           normalisation = f -> Integral(xmin, xmax);
+        }
 
         // initialise random number generator
         TRandom3 rnd(distr.seed);
