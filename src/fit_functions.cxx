@@ -28,22 +28,18 @@ Double_t gauss(Double_t *x, Double_t *par) {
 
     Double_t mean   = par[0];
     Double_t rms    = par[1];
-    Double_t norm   = par[2];
 
     Double_t arg = x[0];
 
-    return ( norm * exp( -0.5 * pow((arg -mean)/rms, 2) ) );
-}
+    Double_t prefactor;
+    if (gTMassPeakFit -> IsNormalisedGauss()) {
+	// in this par[2] is number of signal events
+	prefactor = gTMassPeakFit -> GetBinWidth() * par[2] / ( rms * sqrt(2.*TMath::Pi()) ) ;
+    } else {
+        // in this case par[2] is maximum value
+        prefactor = par[2];
+    }
 
-Double_t normalised_gauss(Double_t *x, Double_t *par) {
-
-    Double_t mean   = par[0];
-    Double_t rms    = par[1];
-    Double_t nevents= par[2];
-
-    Double_t arg = x[0];
-
-    Double_t prefactor = gTMassPeakFit -> GetBinWidth() * nevents / ( rms * sqrt(2.*TMath::Pi()) ) ;
     return ( prefactor * exp( -0.5 * pow((arg -mean)/rms, 2) ) );
 }
 
