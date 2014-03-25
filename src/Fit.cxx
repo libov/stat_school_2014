@@ -33,6 +33,11 @@ void TMassPeakFit::Fit() {
     // if only_draw_initial is 1 in the config file, the minimization is not performed - instead function using start values are displayed
     if (fOnlyDrawInitial) return;
 
+    // ***********  USER EDITABLE PART  *********** //
+    
     // perform the minimization!
     fMinuit -> Command("MIGRAD");
+    
+    
+    // ********  END OF USER EDITABLE PART  ******* //
 }
