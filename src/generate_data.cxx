@@ -145,12 +145,12 @@ int main (int argc, char **argv) {
         // helping function for random generation
         TF1 * f;
         // overal normalisation
-	Double_t normalisation;
-	if (distr.type!="gauss"){
-           f = new TF1("", distr.type, xmin, xmax);  
-           f -> SetParameters(distr.par);
-           // calculate overall normalisation
-           normalisation = f -> Integral(xmin, xmax);
+        Double_t normalisation;
+        if (distr.type!="gauss"){
+            f = new TF1("", distr.type, xmin, xmax);  
+            f -> SetParameters(distr.par);
+            // calculate overall normalisation
+            normalisation = f -> Integral(xmin, xmax);
         }
 
         // initialise random number generator
@@ -177,6 +177,10 @@ int main (int argc, char **argv) {
 
     h -> Write();
     output -> Close();
+    
+    TCanvas c;
+    h -> Draw();
+    c.Print("data/"+histogram+".eps");
 
     // done
     cout << endl;
