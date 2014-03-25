@@ -8,8 +8,11 @@ fit_function        gauss
 normalised_gauss    1
 # possible values: chi2_pearson, chi2_neyman, log_likelihood
 fit_type            chi2_neyman
-fit_range           3   5
+fit_range           3 5
 start_values        3.9 0.4 8000
-fix_parameters      0     0    0
+fix_parameters      0   0   0
+lower_limit         0   0   0
+upper_limit         0   0   0
+step                0.1 0.1 10
 covariance_ellipse_parameters 2 3
 only_draw_initial   0
