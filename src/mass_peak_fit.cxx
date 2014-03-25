@@ -35,10 +35,8 @@ int main (int argc, char **argv) {
 
     static struct option long_options[] = {
         {"config",     required_argument, 0, 1},
-        {"custom_fit",     no_argument,       0, 2},
     };
     TString  config     = "";
-    bool     custom_fit = false;
 
     int option;
     int option_index;
@@ -50,13 +48,9 @@ int main (int argc, char **argv) {
                 system("cat config/mass_peak_fit/" + config);
                 cout << endl;
                 break;
-            case 2:
-                custom_fit = true;
-                cout << "INFO: working in custom mode. TMassPeakFit::CustomFit() will be executed" << endl;
-                break;
             case 'h':
                 cout<<"\nUsage: " << endl;
-                cout<<"\tmass_peak_fit  --config <configuration file> [--custom_fit]\n"<<endl;
+                cout<<"\tmass_peak_fit  --config <configuration file>\n"<<endl;
                 cout << endl;
                 cout << " AVAILABLE CONFIGURATION FILES:\n";
                 system("ls config/mass_peak_fit | grep -v README");
@@ -78,12 +72,10 @@ int main (int argc, char **argv) {
     // create object
     TMassPeakFit instance(config, minimization_function);
 
-    if (custom_fit) {
-        instance.CustomFit();
-    } else {
-        instance.Fit();
-    }
+    // perform minimisation
+    instance.Fit();
 
+    // produce graphical output
     instance.MakePlots();
 
     // done
