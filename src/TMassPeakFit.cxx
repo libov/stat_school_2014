@@ -108,6 +108,21 @@ void    TMassPeakFit::ReadSettings() {
                 fFixParameters[i] = (((TObjString*)tokens->At(i+1)) -> GetString()).Atof();
             }
         }
+        if (first_word == "lower_limit") {
+            for (Int_t i=0; i<tokens->GetEntries()-1; i++) {
+                fLowerLimit[i] = (((TObjString*)tokens->At(i+1)) -> GetString()).Atof();
+            }
+        }
+        if (first_word == "upper_limit") {
+            for (Int_t i=0; i<tokens->GetEntries()-1; i++) {
+                fUpperLimit[i] = (((TObjString*)tokens->At(i+1)) -> GetString()).Atof();
+            }
+        }
+        if (first_word == "step") {
+            for (Int_t i=0; i<tokens->GetEntries()-1; i++) {
+                fFitStep[i] = (((TObjString*)tokens->At(i+1)) -> GetString()).Atof();
+            }
+        }
         if (first_word == "covariance_ellipse_parameters") {
             fDrawCovarianceEllipses = true;
             fCovarianceEllipseParameter1 =(((TObjString*)tokens->At(1)) -> GetString()).Atoi();
