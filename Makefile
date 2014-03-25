@@ -34,10 +34,10 @@ fit_functions.o: fit_functions.cxx fit_functions.h
 	gcc -o $(OBJ)/$@ -c $< -I inc/ $(FLAGS_OBJ)
 
 mass_peak_fit.exe: mass_peak_fit.o TMassPeakFit.o fit_functions.o Fit.o minimization_functions.o
-	gcc -o mass_peak_fit.exe $(OBJ)/mass_peak_fit.o $(OBJ)/TMassPeakFit.o $(OBJ)/Fit.o $(OBJ)/fit_functions.o $(OBJ)/minimization_functions.o $(FLAGS) -lMinuit
+	gcc -o mass_peak_fit.exe $(OBJ)/mass_peak_fit.o $(OBJ)/TMassPeakFit.o $(OBJ)/Fit.o $(OBJ)/fit_functions.o $(OBJ)/minimization_functions.o $(FLAGS) -lMinuit -lstdc++
 
 generate_data.exe: generate_data.o
-	gcc -o generate_data.exe $(OBJ)/generate_data.o $(FLAGS)
+	gcc -o generate_data.exe $(OBJ)/generate_data.o $(FLAGS) -lstdc++
 
 .PHONY: clean
 clean:
