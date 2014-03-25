@@ -41,6 +41,9 @@ class TMassPeakFit : public TObject {
         TString     fInputFile;
         TString     fInputHistogramName;
         Double_t    fStartValues[99];
+        Double_t    fFitStep[99];
+        Double_t    fLowerLimit[99];
+        Double_t    fUpperLimit[99];
         Double_t    fFitRange[99];
         Double_t    fFixParameters[99];
         bool        fOnlyDrawInitial;
