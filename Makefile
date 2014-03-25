@@ -24,9 +24,6 @@ generate_data.o: generate_data.cxx
 TMassPeakFit.o: TMassPeakFit.cxx TMassPeakFit.h
 	gcc -o $(OBJ)/$@ -c $< -I inc/ $(FLAGS_OBJ)
 
-CustomFit.o: CustomFit.cxx TMassPeakFit.h
-	gcc -o $(OBJ)/$@ -c $< -I inc/ $(FLAGS_OBJ)
-
 Fit.o: Fit.cxx TMassPeakFit.h
 	gcc -o $(OBJ)/$@ -c $< -I inc/ $(FLAGS_OBJ)
 
