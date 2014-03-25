@@ -48,6 +48,12 @@ TMassPeakFit::TMassPeakFit(TString config, void (*fcn)(Int_t&, Double_t*, Double
 
     fMinuit = new TMinuit(3);
     fMinuit -> SetFCN(fcn);
+
+    // initialise Minuit (set parameter names, start values, limits, fit steps; some of these are set in the config file, others directly here)
+    for (unsigned i=0; i<fNParameters; i++) {
+        fMinuit->DefineParameter(i, fParName[i], fStartValues[i], fFitStep[i], fLowerLimit[i], fUpperLimit[i]);
+        if ( fFixParameters[i] == 1 ) fMinuit -> FixParameter(i);
+    }
 }
 
 // --------------------------------------------------------- //
