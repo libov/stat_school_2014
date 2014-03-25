@@ -34,5 +34,5 @@ void TMassPeakFit::Fit() {
     if (fOnlyDrawInitial) return;
 
     // perform the minimization!
-    fMinuit -> Migrad();
+    fMinuit -> Command("MIGRAD");
 }
