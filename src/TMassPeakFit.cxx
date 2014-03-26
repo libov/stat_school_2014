@@ -17,6 +17,7 @@
 #include <TF1.h>
 #include <TLegend.h>
 #include <TGraph.h>
+#include <TPaveText.h>
 
 // system headers
 #include <iostream>
@@ -26,6 +27,24 @@
 using namespace std;
 
 TMassPeakFit *gTMassPeakFit;
+
+// ========== helping functions ========== //
+TString toStr(Double_t arg, Int_t decimals);
+TString toStr(Int_t arg);
+
+TString toStr(Double_t arg, Int_t decimals) {
+    char tmp[256];
+    TString format = "%."+toStr(decimals)+"f";
+    sprintf(tmp, format, arg);
+    TString result(tmp);
+    return result;
+}
+
+TString toStr(Int_t arg) {
+    TString result;
+    result += arg;
+    return result;
+}
 
 // --------------------------------------------------------- //
 // ------------------ Class constructor -------------------- //
@@ -244,6 +263,16 @@ void    TMassPeakFit::MakePlots() {
     leg -> AddEntry(fitresult, "fit", "l");
     leg -> SetFillColor(0);
     leg -> Draw("same");
+    
+    // and fit results
+    TPaveText *pt = new TPaveText(.7, .45, .98, .75, "NDC");
+    pt -> SetFillColor(0);
+    pt -> SetTextAlign(11);
+     for (unsigned i=0; i<fNParameters; i++) {
+        TString text = fParName[i] + " = " + toStr(par[i], 3) + " #pm " + toStr(par_err[i], 3);
+        if ( fFixParameters[i] != 1 ) pt -> AddText(text);
+    }
+    pt -> Draw("same");
 
     // print to file
     c -> Print("results/fit.eps");
