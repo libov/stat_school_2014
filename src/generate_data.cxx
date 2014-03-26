@@ -175,13 +175,14 @@ int main (int argc, char **argv) {
         }
     }
 
-    h -> Write();
-    output -> Close();
-    
     TCanvas c;
     h -> Draw();
     c.Print("data/"+histogram+".eps");
 
+    output -> cd();
+    h -> Write();
+    output -> Close();
+    
     // done
     cout << endl;
     return 0;
