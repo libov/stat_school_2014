@@ -249,7 +249,7 @@ void    TMassPeakFit::MakePlots() {
     c -> Print("results/fit.eps");
     c -> Print("results/fit.root");
 
-    // draw covariance ellipse
+    // covariance ellipse
     if (fDrawCovarianceEllipses) {
         TCanvas * c2 = new TCanvas();
         TGraph *cont = (TGraph*)gMinuit->Contour(100, fCovarianceEllipseParameter1-1, fCovarianceEllipseParameter2-1);
@@ -263,6 +263,7 @@ void    TMassPeakFit::MakePlots() {
         }
     }
     
+    // pulls
     TCanvas c3;
     TH1F * pull = new TH1F ("", "", 20, -3, 3);
     for (int i=1; i<=fHistogram->GetNbinsX(); i++) {
