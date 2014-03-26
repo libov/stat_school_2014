@@ -265,10 +265,11 @@ void    TMassPeakFit::MakePlots() {
     
     TCanvas c3;
     TH1F * pull = new TH1F ("", "", 20, -3, 3);
-    for (unsigned i=1; i<=fHistogram->GetNbinsX(); i++) {
+    for (int i=1; i<=fHistogram->GetNbinsX(); i++) {
         double deviation = fHistogram -> GetBinContent(i) - fitresult -> Eval(fHistogram -> GetBinCenter(i));
         pull -> Fill(deviation/fHistogram -> GetBinError(i));
     }
     pull -> Draw();
     c3.Print("results/pulls.eps");
+    c3.Print("results/pulls.root");
 }
