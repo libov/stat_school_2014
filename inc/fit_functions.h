@@ -5,6 +5,8 @@
 
 Double_t gauss(Double_t *x, Double_t *par);
 
+Double_t pol0(Double_t *x, Double_t *par);
+
 Double_t pol3(Double_t *x, Double_t *par);
 
 TString get_parameter_name(TString function, unsigned par_nr);
