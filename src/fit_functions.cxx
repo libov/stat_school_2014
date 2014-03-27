@@ -43,6 +43,17 @@ Double_t gauss(Double_t *x, Double_t *par) {
     return ( prefactor * exp( -0.5 * pow((arg -mean)/rms, 2) ) );
 }
 
+Double_t pol0(Double_t *x, Double_t *par) {
+
+    Double_t Nevents = par[0];
+    
+    Double_t bin_width = gTMassPeakFit -> GetBinWidth();
+    Double_t x_up = gTMassPeakFit -> GetHistogramUpperLimit();
+    Double_t x_down = gTMassPeakFit -> GetHistogramLowerLimit();
+
+    return ( Nevents * bin_width / ( x_up - x_down ) );
+}
+
 Double_t pol3(Double_t *x, Double_t *par) {
 
     Double_t p0 = par[0];
