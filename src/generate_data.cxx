@@ -112,8 +112,8 @@ int main (int argc, char **argv) {
         if (first_word == "distribution") {
             Distribution distr;
             distr.type = ((TObjString*)tokens->At(1)) -> GetString();
-            distr.npoints = (((TObjString*)tokens->At(2)) -> GetString()).Atoi();
-            distr.seed = (((TObjString*)tokens->At(3)) -> GetString()).Atoi();
+            distr.seed = (((TObjString*)tokens->At(2)) -> GetString()).Atoi();
+            distr.npoints = (((TObjString*)tokens->At(3)) -> GetString()).Atoi();
             unsigned entries = tokens -> GetEntries();
             unsigned npar = entries - 4; // total # of entries is # of function-specific parameters + 4 (keyword, function type, number of points, seed)
             for (unsigned i=0; i<npar; i++) {
@@ -147,7 +147,8 @@ int main (int argc, char **argv) {
         // overal normalisation
         Double_t normalisation;
         if (distr.type!="gauss"){
-            f = new TF1("", distr.type, xmin, xmax);  
+            f = new TF1("", distr.type, xmin, xmax);
+            if (distr.type == "pol0") distr.par[1] = 1; 
             f -> SetParameters(distr.par);
             // calculate overall normalisation
             normalisation = f -> Integral(xmin, xmax);
@@ -176,6 +177,7 @@ int main (int argc, char **argv) {
     }
 
     TCanvas c;
+    h -> SetAxisRange(0, h -> GetMaximum() * 1.1, "Y");
     h -> Draw();
     c.Print("data/"+histogram+".eps");
 
