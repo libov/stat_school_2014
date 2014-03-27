@@ -1,3 +1,0 @@
-make
-./generate_data.exe --config gauss_pol3
-./mass_peak_fit.exe --config gauss_pol3
