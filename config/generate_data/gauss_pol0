@@ -8,6 +8,5 @@ xmax            5
 # remarks: seed = 0 means unique random number chain is different on every run; seed != 0: chain is the same on every run
 # pol3 parameters: all four parameters must be given, along with number of events. Polynomial obtained from four parameters is normalised to unity in order to obtain
 # the probability density; the given number of events distributed according to this density is then generated
-distribution    gauss   0   10000   4.0     0.05
-distribution    gauss   0   15000   4.0     0.2
-distribution    pol0    0   20000
+distribution    gauss 0     10000   4.0     0.05
+distribution    pol0  0     100000
