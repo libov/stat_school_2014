@@ -21,7 +21,9 @@ class TMassPeakFit : public TObject {
         Double_t    FitFunction(Double_t * x, Double_t * par);
         void        MakePlots();
         Double_t    GetBinWidth() {return fBinWidth;}
-	bool        IsNormalisedGauss() {return fIsNormalisedGauss;}
+        Double_t    GetHistogramLowerLimit() {return fHistogram -> GetBinLowEdge(1);}
+        Double_t    GetHistogramUpperLimit() {return ( fHistogram -> GetBinLowEdge(fHistogram -> GetNbinsX()) + GetBinWidth() ) ;}
+        bool        IsNormalisedGauss() {return fIsNormalisedGauss;}
 
     private:
 
