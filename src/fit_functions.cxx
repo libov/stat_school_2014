@@ -26,18 +26,18 @@ using namespace std;
 
 Double_t gauss(Double_t *x, Double_t *par) {
 
-    Double_t mean   = par[0];
-    Double_t rms    = par[1];
+    Double_t mean   = par[1];
+    Double_t rms    = par[2];
 
     Double_t arg = x[0];
 
     Double_t prefactor;
     if (gTMassPeakFit -> IsNormalisedGauss()) {
-	// in this par[2] is number of signal events
-	prefactor = gTMassPeakFit -> GetBinWidth() * par[2] / ( rms * sqrt(2.*TMath::Pi()) ) ;
+	// in this par[0] is number of signal events
+	prefactor = gTMassPeakFit -> GetBinWidth() * par[0] / ( rms * sqrt(2.*TMath::Pi()) ) ;
     } else {
-        // in this case par[2] is maximum value
-        prefactor = par[2];
+        // in this case par[0] is maximum value
+        prefactor = par[0];
     }
 
     return ( prefactor * exp( -0.5 * pow((arg -mean)/rms, 2) ) );
@@ -71,6 +71,7 @@ unsigned get_n_parameters(TString function) {
     map<TString,unsigned> n_par;
 
     n_par["gauss"] = 3;
+    n_par["pol0"]  = 1;
     n_par["pol3"]  = 4;
 
     return (n_par[function]);
@@ -83,6 +84,7 @@ FIT_FUNCTION get_function_pointer(TString function){ // another way: Double_t (*
     map<TString, FIT_FUNCTION> pointers;
 
     pointers["gauss"]   = gauss;
+    pointers["pol0"]    = pol0;
     pointers["pol3"]    = pol3;
 
     return pointers[function];
@@ -93,13 +95,16 @@ TString get_parameter_name(TString function, unsigned par_nr) {
     map<TString, vector<TString> > parameter_names;
 
     parameter_names["gauss"].clear();
-    parameter_names["gauss"].push_back("Mean             ");
-    parameter_names["gauss"].push_back("RMS (sigma)      ");
     if (gTMassPeakFit -> IsNormalisedGauss()) {
         parameter_names["gauss"].push_back("Nevents          ");
     } else {
         parameter_names["gauss"].push_back("Maximum value    ");
     }
+    parameter_names["gauss"].push_back("Mean             ");
+    parameter_names["gauss"].push_back("RMS (sigma)      ");
+    
+    parameter_names["pol0"].clear();
+    parameter_names["pol0"].push_back("Nevents          ");
 
     parameter_names["pol3"].clear();
     parameter_names["pol3"].push_back("p0               ");
