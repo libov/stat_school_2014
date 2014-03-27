@@ -268,7 +268,7 @@ void    TMassPeakFit::MakePlots() {
     TPaveText *pt = new TPaveText(.7, .45, .98, .75, "NDC");
     pt -> SetFillColor(0);
     pt -> SetTextAlign(11);
-     for (unsigned i=0; i<fNParameters; i++) {
+    for (unsigned i=0; i<fNParameters; i++) {
         TString text = fParName[i] + " = " + toStr(par[i], 3) + " #pm " + toStr(par_err[i], 3);
         if ( fFixParameters[i] != 1 ) pt -> AddText(text);
     }
