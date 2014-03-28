@@ -59,6 +59,7 @@ class TMassPeakFit : public TObject {
         TString         fParName[99];
         double          fBinWidth;
         bool            fIsNormalisedGauss;
+        unsigned        fNDataPoints;
 
         // internal objects
         TH1F*       fHistogram;
