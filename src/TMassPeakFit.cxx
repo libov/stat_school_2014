@@ -289,17 +289,25 @@ void    TMassPeakFit::MakePlots() {
     // covariance ellipse
     if (fDrawCovarianceEllipses) {
         TCanvas * c2 = new TCanvas();
+        gMinuit -> SetErrorDef(4);
         TGraph *cont = (TGraph*)gMinuit->Contour(100, fCovarianceEllipseParameter1-1, fCovarianceEllipseParameter2-1);
         if (cont) {
             cont -> SetTitle ("Covariance ellipse");
             cont -> GetXaxis() -> SetTitle(fParName[fCovarianceEllipseParameter1-1]);
             cont -> GetYaxis() -> SetTitle(fParName[fCovarianceEllipseParameter2-1]);
+            cont -> GetXaxis() -> SetTitleOffset(1.5);
+            cont -> GetYaxis() -> SetTitleOffset(1.5);
             cont->Draw("al");
+        }
+        gMinuit -> SetErrorDef(1);
+        TGraph *cont2 = (TGraph*)gMinuit->Contour(100, fCovarianceEllipseParameter1-1, fCovarianceEllipseParameter2-1);
+        if (cont2) {
+            cont2->Draw("samel");
             c2 -> Print("results/cov_ellipse.eps");
             c2 -> Print("results/cov_ellipse.root");
         }
     }
-    
+
     // pulls
     TCanvas c3;
     TH1F * pull = new TH1F ("", "", 20, -3, 3);
