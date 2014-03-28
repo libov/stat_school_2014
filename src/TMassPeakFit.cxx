@@ -356,5 +356,4 @@ void    TMassPeakFit::MakePlots() {
     pull2 -> Draw();
     c4.Print("results/pull2.eps");
     c4.Print("results/pull2.root");
-
 }
