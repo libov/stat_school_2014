@@ -309,13 +309,32 @@ void    TMassPeakFit::MakePlots() {
     }
 
     // pulls
-    TCanvas c3;
-    TH1F * pull = new TH1F ("", "", 20, -3, 3);
+    TH1F * pull1 = new TH1F ("", "", 20, -3, 3);
+    double x_down = GetHistogramLowerLimit();
+    double x_up = GetHistogramUpperLimit();
+    TH1F * pull2 = new TH1F ("", "", (x_up-x_down)/fBinWidth, x_down, x_up);
     for (int i=1; i<=fHistogram->GetNbinsX(); i++) {
-        double deviation = fHistogram -> GetBinContent(i) - fitresult -> Eval(fHistogram -> GetBinCenter(i));
-        pull -> Fill(deviation/fHistogram -> GetBinError(i));
+        double data = fHistogram -> GetBinContent(i);
+        double fit = fitresult -> Eval(fHistogram -> GetBinCenter(i));
+        double deviation = data - fit;
+        double error = fHistogram -> GetBinError(i);
+        if (data!=0) {
+            pull1 -> Fill(deviation/error);
+            pull2 -> SetBinContent(i, deviation);
+            pull2 -> SetBinError(i, error);
+        }
     }
-    pull -> Draw();
-    c3.Print("results/pulls.eps");
-    c3.Print("results/pulls.root");
+
+    TCanvas c3;
+    c3.cd();
+    pull1 -> Draw();
+    c3.Print("results/pull1.eps");
+    c3.Print("results/pull1.root");
+
+    TCanvas c4;
+    c4.cd();
+    pull2 -> Draw();
+    c4.Print("results/pull2.eps");
+    c4.Print("results/pull2.root");
+
 }
