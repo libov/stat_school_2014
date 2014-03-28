@@ -37,7 +37,8 @@ void TMassPeakFit::Fit() {
     
     // perform the minimization!
     fMinuit -> Command("MIGRAD");
-    
+    fMinuit -> Command("HESSE");
+    fMinuit -> Command("MINOS");
     
     // ********  END OF USER EDITABLE PART  ******* //
 }
