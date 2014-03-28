@@ -4,7 +4,7 @@ input_histogram     test
 
 # possible values: gauss, normalised_gauss, pol3.
 # Any combination of these functions works, separate them with '+'.
-fit_function        gauss+pol3
+fit_function        gauss+pol0
 normalised_gauss    1
 # possible values: chi2_pearson, chi2_neyman, log_likelihood
 fit_type            chi2_neyman
