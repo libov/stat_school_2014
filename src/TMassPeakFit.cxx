@@ -288,21 +288,41 @@ void    TMassPeakFit::MakePlots() {
 
     // covariance ellipse
     if (fDrawCovarianceEllipses) {
+
         TCanvas * c2 = new TCanvas();
-        gMinuit -> SetErrorDef(4);
-        TGraph *cont = (TGraph*)gMinuit->Contour(100, fCovarianceEllipseParameter1-1, fCovarianceEllipseParameter2-1);
-        if (cont) {
-            cont -> SetTitle ("Covariance ellipse");
-            cont -> GetXaxis() -> SetTitle(fParName[fCovarianceEllipseParameter1-1]);
-            cont -> GetYaxis() -> SetTitle(fParName[fCovarianceEllipseParameter2-1]);
-            cont -> GetXaxis() -> SetTitleOffset(1.5);
-            cont -> GetYaxis() -> SetTitleOffset(1.5);
-            cont->Draw("al");
-        }
-        gMinuit -> SetErrorDef(1);
+ 
+        gMinuit -> SetErrorDef(3*3);
+        TGraph *cont1 = (TGraph*)gMinuit->Contour(100, fCovarianceEllipseParameter1-1, fCovarianceEllipseParameter2-1);
+        if (cont1) cont1->Draw("al");
+
+        gMinuit -> SetErrorDef(2.5*2.5);
         TGraph *cont2 = (TGraph*)gMinuit->Contour(100, fCovarianceEllipseParameter1-1, fCovarianceEllipseParameter2-1);
-        if (cont2) {
-            cont2->Draw("samel");
+        if (cont2) cont2->Draw("samel");
+        
+        gMinuit -> SetErrorDef(2*2);
+        TGraph *cont3 = (TGraph*)gMinuit->Contour(100, fCovarianceEllipseParameter1-1, fCovarianceEllipseParameter2-1);
+        if (cont3) cont3->Draw("samel");
+        
+        gMinuit -> SetErrorDef(1.5*1.5);
+        TGraph *cont4 = (TGraph*)gMinuit->Contour(100, fCovarianceEllipseParameter1-1, fCovarianceEllipseParameter2-1);
+        if (cont4) cont4->Draw("samel");
+
+        gMinuit -> SetErrorDef(1*1);
+        TGraph *cont5 = (TGraph*)gMinuit->Contour(100, fCovarianceEllipseParameter1-1, fCovarianceEllipseParameter2-1);
+        if (cont5) cont5->Draw("samel");
+        
+        gMinuit -> SetErrorDef(0.5*0.5);
+        TGraph *cont6 = (TGraph*)gMinuit->Contour(100, fCovarianceEllipseParameter1-1, fCovarianceEllipseParameter2-1);
+        if (cont6) cont6->Draw("samel");
+
+        if (cont1) {
+  
+            cont1 -> SetTitle ("Covariance ellipse");
+            cont1 -> GetXaxis() -> SetTitle(fParName[fCovarianceEllipseParameter1-1]);
+            cont1 -> GetYaxis() -> SetTitle(fParName[fCovarianceEllipseParameter2-1]);
+            cont1 -> GetXaxis() -> SetTitleOffset(1.5);
+            cont1 -> GetYaxis() -> SetTitleOffset(1.5);
+
             c2 -> Print("results/cov_ellipse.eps");
             c2 -> Print("results/cov_ellipse.root");
         }
