@@ -39,7 +39,7 @@ Double_t TMassPeakFit::chi2(Double_t * par) {
 
     // this is the value at which the fit function is evaluated
     Double_t x;
-
+    fNDataPoints = 0;
     // loop over chi2 terms (=histogram bins)
     for (unsigned i=1; i<=nbins; i++) {
         // get the center of the bin
@@ -55,6 +55,7 @@ Double_t TMassPeakFit::chi2(Double_t * par) {
         }
         // this affects mostly Neyman's definition; entries with zero number of events should be skipped - the error is otherwise zero and can't be used in the denominator!
         if (variance == 0 ) continue;
+        fNDataPoints++;
         result += pow( fHistogram -> GetBinContent(i) - FitFunction(&x, par), 2 ) / variance;
     }
 
