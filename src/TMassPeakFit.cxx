@@ -242,6 +242,7 @@ void    TMassPeakFit::MakePlots() {
     // draw the fitted function
     TF1 * fitresult =  new TF1("f", this, &TMassPeakFit::FitFunction, fFitRange[0], fFitRange[1], fNParameters, "TMassPeakFit", "FitFunction");
     fitresult -> SetParameters(par);
+    fitresult -> SetNpx(1000);
     fitresult -> Draw("same");
 
     // draw individual components
@@ -253,6 +254,7 @@ void    TMassPeakFit::MakePlots() {
             f -> SetParameters(&par[n_par_current]);
             n_par_current += get_n_parameters(function);
             f -> SetLineColor(i+3);
+            f -> SetNpx(1000);
             f -> Draw("same");
         }
     }
@@ -269,7 +271,9 @@ void    TMassPeakFit::MakePlots() {
     pt -> SetFillColor(0);
     pt -> SetTextAlign(11);
     for (unsigned i=0; i<fNParameters; i++) {
-        TString text = fParName[i] + " = " + toStr(par[i], 3) + " #pm " + toStr(par_err[i], 3);
+        unsigned ndigits = 2;
+        if ( fParName[i].Contains("RMS") || fParName[i].Contains("Mean")) ndigits = 5;
+        TString text = fParName[i] + " = " + toStr(par[i], ndigits) + " #pm " + toStr(par_err[i], ndigits);
         if ( fFixParameters[i] != 1 ) pt -> AddText(text);
     }
 
@@ -279,7 +283,7 @@ void    TMassPeakFit::MakePlots() {
     double chi2_neyman = chi2(par);
     fPearson = tmp;
     unsigned ndof = fNDataPoints - gMinuit ->  GetNumFreePars();
-    pt -> AddText("#chi^{2}/ndof = " + toStr(chi2_neyman, 1) + "/" + toStr(ndof) + " = " + toStr(chi2_neyman/ndof, 1) );
+    pt -> AddText("#chi^{2}/ndof = " + toStr(chi2_neyman, 1) + "/" + toStr(ndof) + " = " + toStr(chi2_neyman/ndof, 2) );
     pt -> Draw("same");
 
     // print to file
@@ -354,6 +358,9 @@ void    TMassPeakFit::MakePlots() {
     TCanvas c4;
     c4.cd();
     pull2 -> Draw();
+    TLine * l = new TLine(x_down, 0, x_up, 0);
+    l -> SetLineStyle(2);
+    l -> Draw("same");
     c4.Print("results/pull2.eps");
     c4.Print("results/pull2.root");
 }
