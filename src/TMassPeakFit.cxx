@@ -272,6 +272,14 @@ void    TMassPeakFit::MakePlots() {
         TString text = fParName[i] + " = " + toStr(par[i], 3) + " #pm " + toStr(par_err[i], 3);
         if ( fFixParameters[i] != 1 ) pt -> AddText(text);
     }
+
+    // print chi2
+    bool tmp = fPearson;
+    fPearson = false;
+    double chi2_neyman = chi2(par);
+    fPearson = tmp;
+    unsigned ndof = fNDataPoints - gMinuit ->  GetNumFreePars();
+    pt -> AddText("#chi^{2}/ndof = " + toStr(chi2_neyman, 1) + "/" + toStr(ndof) + " = " + toStr(chi2_neyman/ndof, 1) );
     pt -> Draw("same");
 
     // print to file
