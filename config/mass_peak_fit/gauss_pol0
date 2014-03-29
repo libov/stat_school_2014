@@ -2,7 +2,7 @@
 input_file          test.root
 input_histogram     test
 
-# possible values: gauss, normalised_gauss, pol3.
+# possible values: gauss, pol0, pol3
 # Any combination of these functions works, separate them with '+'.
 fit_function        gauss+pol0
 normalised_gauss    1

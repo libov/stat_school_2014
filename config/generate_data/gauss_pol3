@@ -3,10 +3,6 @@ histogram       test
 bin_width       0.05
 xmin            3
 xmax            5
-# specify which data to generate
-# distribution <function> <random number generator seed> <number of events> <parameter 1> <parameter 2> ...
-# remarks: seed = 0 means unique random number chain is different on every run; seed != 0: chain is the same on every run
-# pol3 parameters: all four parameters must be given, along with number of events. Polynomial obtained from four parameters is normalised to unity in order to obtain
-# the probability density; the given number of events distributed according to this density is then generated
+# Function Seed Parameters
 distribution    gauss 0     10000   4.0     0.05
 distribution    pol3  0     100000  1       0       2       1
