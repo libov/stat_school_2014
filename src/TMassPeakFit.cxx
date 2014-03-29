@@ -272,7 +272,7 @@ void    TMassPeakFit::MakePlots() {
     pt -> SetTextAlign(11);
     for (unsigned i=0; i<fNParameters; i++) {
         unsigned ndigits = 2;
-        if ( fParName[i].Contains("RMS") || fParName[i].Contains("Mean")) ndigits = 5;
+        if ( fParName[i].Contains("Sigma") || fParName[i].Contains("Mu")) ndigits = 5;
         TString text = fParName[i] + " = " + toStr(par[i], ndigits) + " #pm " + toStr(par_err[i], ndigits);
         if ( fFixParameters[i] != 1 ) pt -> AddText(text);
     }

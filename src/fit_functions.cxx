@@ -96,15 +96,15 @@ TString get_parameter_name(TString function, unsigned par_nr) {
 
     parameter_names["gauss"].clear();
     if (gTMassPeakFit -> IsNormalisedGauss()) {
-        parameter_names["gauss"].push_back("Nevents          ");
+        parameter_names["gauss"].push_back("Ns               ");
     } else {
         parameter_names["gauss"].push_back("Maximum value    ");
     }
-    parameter_names["gauss"].push_back("Mean             ");
-    parameter_names["gauss"].push_back("RMS (sigma)      ");
+    parameter_names["gauss"].push_back("Mu               ");
+    parameter_names["gauss"].push_back("Sigma            ");
     
     parameter_names["pol0"].clear();
-    parameter_names["pol0"].push_back("Nevents          ");
+    parameter_names["pol0"].push_back("Nbg              ");
 
     parameter_names["pol3"].clear();
     parameter_names["pol3"].push_back("p0               ");
