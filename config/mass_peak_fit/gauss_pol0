@@ -7,12 +7,12 @@ input_histogram     test
 fit_function        gauss+pol0
 normalised_gauss    1
 # possible values: chi2_pearson, chi2_neyman, log_likelihood
-fit_type            chi2_neyman
+fit_type            log_likelihood
 fit_range           3 5
-start_values        1000    3.8     0.2     1000
-fix_parameters      0       0       0       0
+start_values        100   4.0     0.02     1000
+fix_parameters      0       1       1       0
 lower_limit         0       0       0       0
 upper_limit         0       0       0       0
 step                10      0.1     0.1     10
-covariance_ellipse_parameters 2 3
+#covariance_ellipse_parameters 1 4
 only_draw_initial   0
