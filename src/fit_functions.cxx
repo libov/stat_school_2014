@@ -104,7 +104,7 @@ TString get_parameter_name(TString function, unsigned par_nr) {
     parameter_names["gauss"].push_back("Sigma            ");
     
     parameter_names["pol0"].clear();
-    parameter_names["pol0"].push_back("Nbg              ");
+    parameter_names["pol0"].push_back("Nb               ");
 
     parameter_names["pol3"].clear();
     parameter_names["pol3"].push_back("p0               ");
