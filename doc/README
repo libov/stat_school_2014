@@ -10,7 +10,14 @@ I. In order to generate data according to the selected distribution(s), the "gen
 
    The following settings are given in the config file: output ROOT file name, histogram name, bin width, histogram range.
    Afterwards, the distributions are listed. For example, one might want to generate a gaussian on a flat background. For that purpose, two lines should
-   be given. See example in config/generate_data/gauss_pol0, as well as other configuration files in that directory.
+   be given. Each line is of the following form:
+   
+        distribution <function> <random number generator seed> <number of events> <parameter 1> <parameter 2> ...
+        
+   Remarks: seed = 0 means unique random number chain is different on every run (seed is calculated based on unix time); seed != 0: chain is the same on every run
+   pol3 parameters: all four parameters must be given, along with number of events. Polynomial obtained from four parameters is normalised to unity in order to obtain
+   the probability density; the given number of events distributed according to this density is then generated
+   See example in config/generate_data/gauss_pol0, as well as other configuration files in that directory.
    The output file is stored under data/ and is used as input to the next step - the fit.
 
 II. The program to fit the data generated in the first step is called "mass_peak_fit".
