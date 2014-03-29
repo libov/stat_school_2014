@@ -1,23 +1,23 @@
-** Mass peak fit tutorial C++/ROOT framework**
+** A C++/ROOT framework for the mass peak fit tutorial **
 
-The framework is capable of generating of data and fitting it with the Minuit program.
+The framework generates data according to a predefined distribution (e.g. a gaussian) and fits it using the Minuit program.
 
-I. In order to generate data according to some selected distribution, the "generate_data" program is used.
-   Settings are given in a config file, which should be located in config/generate_data/ directory.
-   The name of the config is passed to the program with help of --config option, e.g.
+I. In order to generate data according to the selected distribution(s), the "generate_data" program is used.
+   Settings are given in a configuration file which must be located in config/generate_data/ directory.
+   The name of the configuration file is passed to the program with help of --config option, e.g.
 
      ./generate_data --config gauss_pol0
 
    The following settings are given in the config file: output ROOT file name, histogram name, bin width, histogram range.
-   Afterwards, the distributions are listed. E.g. one can generate a gaussian on a flat background. For that purpose, two lines should
-   be given. See example in config/generate_data/gauss_pol0 and other files in that directory.
+   Afterwards, the distributions are listed. For example, one might want to generate a gaussian on a flat background. For that purpose, two lines should
+   be given. See example in config/generate_data/gauss_pol0, as well as other configuration files in that directory.
    The output file is stored under data/ and is used as input to the next step - the fit.
 
 II. The program to fit the data generated in the first step is called "mass_peak_fit".
-    The actual functionality is implemented in TMassPeakFit class, while mass_peak_fit program is a high-level wrapper that creates and steers an instance of this class.
+    The actual functionality is implemented in the TMassPeakFit class, while the mass_peak_fit program is a high-level wrapper that creates and steers an instance of this class.
     The program constructs a chi2 function and minimises it with respect to the fit function parameters, for example the mean and the width of the signal.  
 
-    src/fit_functions.cxx: 		implementations of the fit functions (gauss, polynomial)
+    src/fit_functions.cxx:              implementations of the fit functions (gauss, polynomial)
     src/minimization_functions.cxx:     implementations of the minimization approaches (neyman chi2, pearson chi2, poisson likelihood)
-    src/Fit.cxx:			MOST IMPORTANT FILE for this tutorial. It contains actual Minuit commands that are executed, e.g. the minimisation itself (MIGRAD),
-                                        calculation of the Hesse matrix (HESSE) or evaluation of fit errors (MINOS)
+    src/Fit.cxx:                        MOST IMPORTANT FILE for this tutorial. It contains actual Minuit commands that are executed, e.g. the minimisation itself (MIGRAD),
+                                        calculation of the Hesse matrix (HESSE) or evaluation of fit errors (MINOS).
