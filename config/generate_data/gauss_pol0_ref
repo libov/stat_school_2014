@@ -3,6 +3,6 @@ histogram       test
 bin_width       0.02
 xmin            3
 xmax            5
-#Function Seed Parameters
+# Function Seed Parameters
 distribution    gauss 1   100   4.0     0.02
 distribution    pol0  1   1000
