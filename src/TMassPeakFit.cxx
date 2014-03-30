@@ -336,8 +336,9 @@ void    TMassPeakFit::MakePlots() {
     TH1F * pull1 = new TH1F ("", "", 20, -3, 3);
     double x_down = GetHistogramLowerLimit();
     double x_up = GetHistogramUpperLimit();
-    TH1F * pull2 = new TH1F ("", "", (x_up-x_down)/fBinWidth, x_down, x_up);
-    for (int i=1; i<=fHistogram->GetNbinsX(); i++) {
+    unsigned nbins = fHistogram -> GetNbinsX();
+    TH1F * pull2 = new TH1F ("", "", nbins, x_down, x_up);
+    for (unsigned i=1; i<=nbins; i++) {
         double data = fHistogram -> GetBinContent(i);
         double fit = fitresult -> Eval(fHistogram -> GetBinCenter(i));
         double deviation = data - fit;
