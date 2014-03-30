@@ -81,8 +81,8 @@ int main (int argc, char **argv) {
     TString  output_file    = "";
     TString  histogram      = "";
     double   bin_width      = 0;
-    unsigned xmin           = 0;
-    unsigned xmax           = 0;
+    double   xmin           = 0;
+    double   xmax           = 0;
     vector <Distribution> distributions;
     string line;
     while ( f.good() ) {
@@ -106,8 +106,8 @@ int main (int argc, char **argv) {
         if (first_word == "output_file")    output_file = ((TObjString*)tokens->At(1)) -> GetString();
         if (first_word == "histogram")      histogram = ((TObjString*)tokens->At(1)) -> GetString();
         if (first_word == "bin_width")      bin_width = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
-        if (first_word == "xmin")           xmin = (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
-        if (first_word == "xmax")           xmax = (((TObjString*)tokens->At(1)) -> GetString()).Atoi();
+        if (first_word == "xmin")           xmin = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
+        if (first_word == "xmax")           xmax = (((TObjString*)tokens->At(1)) -> GetString()).Atof();
  
         if (first_word == "distribution") {
             Distribution distr;
@@ -131,7 +131,7 @@ int main (int argc, char **argv) {
     TFile * output = new TFile ("data/"+output_file, "recreate");
     cout << "INFO: storing data to " << "data/"+output_file << endl;
 
-    unsigned nbins = floor( (xmax-xmin) / bin_width + 0.5);
+    unsigned nbins = (unsigned) ( floor( (xmax-xmin) / bin_width + 0.5 ) );
     double xmax_new = xmin + nbins*bin_width;
     if ( xmax != xmax_new) {
         cout << "WARNING: redefining upper range of the histogram since the range isn't integer number of bin widths.." << endl;
