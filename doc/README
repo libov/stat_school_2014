@@ -1,28 +1,36 @@
 ** A C++/ROOT framework for the mass peak fit tutorial **
 
-The framework generates data according to a predefined distribution (e.g. a gaussian) and fits it using the Minuit program.
+The framework generates pseudodata according to a predefined distribution (e.g. a gaussian) and fits it using the Minuit program.
 
-I. In order to generate data according to the selected distribution(s), the "generate_data" program is used.
+I. In order to generate pseudodata according to the selected distribution(s), the "generate_data" program is used.
    Settings are given in a configuration file which must be located in config/generate_data/ directory.
    The name of the configuration file is passed to the program with help of --config option, e.g.
 
      ./generate_data --config gauss_pol0
 
    The following settings are given in the config file: output ROOT file name, histogram name, bin width, histogram range.
-   Afterwards, the distributions are listed. For example, one might want to generate a gaussian on a flat background. For that purpose, two lines should
-   be given. Each line is of the following form:
+   Afterwards, the distributions to be generated are listed. For example, one might want to generate a gaussian on a flat background. For that purpose, two lines should
+   be given. Each line takes the the following form:
    
         distribution <function> <random number generator seed> <number of events> <parameter 1> <parameter 2> ...
         
-   Remarks: seed = 0 means unique random number chain is different on every run (seed is calculated based on unix time); seed != 0: chain is the same on every run
-   pol3 parameters: all four parameters must be given, along with number of events. Polynomial obtained from four parameters is normalised to unity in order to obtain
-   the probability density; the given number of events distributed according to this density is then generated
-   See example in config/generate_data/gauss_pol0, as well as other configuration files in that directory.
-   The output file is stored under data/ and is used as input to the next step - the fit.
+   Remarks: 
+   * seed = 0 means unique random number chain is different on every run (seed is calculated based on unix time); seed != 0: chain is the same on every run.
+   * pol3 parameters: all four parameters must be given, along with number of events. Polynomial obtained from four parameters is normalised to unity in order to obtain
+     the probability density; the given number of events distributed according to this density is then generated.
+
+   The output ROOT file with a histogram containing generated pseudodata is stored under data/ and is used as input to the next step - the fit.
 
 II. The program to fit the data generated in the first step is called "mass_peak_fit".
     The actual functionality is implemented in the TMassPeakFit class, while the mass_peak_fit program is a high-level wrapper that creates and steers an instance of this class.
-    The program constructs a chi2 function and minimises it with respect to the fit function parameters, for example the mean and the width of the signal.  
+    The program constructs a chi2 function and minimises it with respect to the fit function parameters, for example the mean and the width of the signal.
+    It is launched as follows similarly as the generate_data, e.g.:
+
+     ./mass_peak_fit --config gauss_pol0
+
+    Note that the config files for this program are located in config/mass_peak_fit.
+
+    Some important files:
 
     src/fit_functions.cxx:              implementations of the fit functions (gauss, polynomial)
     src/minimization_functions.cxx:     implementations of the minimization approaches (neyman chi2, pearson chi2, poisson likelihood)
