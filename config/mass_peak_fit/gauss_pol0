@@ -10,7 +10,7 @@ normalised_gauss    1
 fit_type            log_likelihood
 fit_range           3 5
 start_values        100   4.0     0.02     1000
-fix_parameters      0       1       1       0
+fix_parameters      0       1       1       1
 lower_limit         0       0       0       0
 upper_limit         0       0       0       0
 step                10      0.1     0.1     10
