@@ -9,10 +9,10 @@ normalised_gauss    1
 # possible values: chi2_pearson, chi2_neyman, log_likelihood
 fit_type            chi2_neyman
 fit_range           3 5
-start_values        1000    3.8     0.2     100     100     1000    100
-fix_parameters      0       0       0       0       0       0       0
+start_values        10000   4       0.06    0       0       140     0
+fix_parameters      0       0       0       1       1       0       1
 lower_limit         0       0       0       0       0       0       0
 upper_limit         0       0       0       0       0       0       0
 step                10      0.1     0.1     1       1       1       1
-covariance_ellipse_parameters 2 3
+# covariance_ellipse_parameters 2 3
 only_draw_initial   0

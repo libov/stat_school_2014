@@ -5,4 +5,4 @@ xmin            3
 xmax            5
 # Function Seed Parameters
 distribution    gauss 0     10000   4.0     0.05
-distribution    pol3  0     100000  1       0       2       1
+distribution    pol3  0     100000  0       0       2       0
