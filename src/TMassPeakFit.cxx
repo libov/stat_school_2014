@@ -87,7 +87,6 @@ void    TMassPeakFit::ReadSettings() {
         cout << "ERROR: Unable to open file " << config_path << endl;
         abort();
     }
-    cout << "\nINFO: opened " << config_path << endl;
 
     string line;
     while ( f.good() ) {
