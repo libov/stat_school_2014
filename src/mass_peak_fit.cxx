@@ -76,6 +76,7 @@ int main (int argc, char **argv) {
     instance.Fit();
 
     // produce graphical output
+    gErrorIgnoreLevel = kError;
     instance.MakePlots();
 
     // done
